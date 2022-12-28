@@ -9,11 +9,14 @@
 <body>
     <script>
         //1st
+        //a(); //에러. a is not function
         // function func1(){
         // }
         // var a=func1;
+            
         
-        //a(); //에러. a is not function
+            
+        // a(); //에러. a is not function
         var a = function(){
             console.log('a함수');
         }
@@ -49,8 +52,9 @@
         console.log(b(90,80,75));
 
         console.log('-------------------------------------------------');
-        //즉시실행 함수
 
+
+        //즉시실행 함수
         (function(x,y,z){
             console.log('즉시실행',(x+y+z));
         })(1,2,3);
