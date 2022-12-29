@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <select id="sel">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+    </select>
+
+    <input type="text" id="inp" placeholder="Type something here, then click outside of the field.">
+
+    <div id="db">db클릭이벤트</div>
+
+
+    <script>
+        //1. 위에 있는 select와 input에 원하는 방법으로 change 걸어보기
+        //2. div에는 dbclick이벤트 걸어보기
+
+        var select=document.getElementById("sel");
+        select.addEventListener("change", function(){console.log("체인지이벤트")});
+       
+        ////////////////////////////////////
+        var input=document.getElementById("inp");
+        input.addEventListener("change",a);
+
+        function a(){
+            console.log("input체인지");
+        }
+
+
+        /////////////////////////////////////
+        var div = document.getElementById("db");
+        div.ondblclick =function() {
+            div.innerHTML='DoubleClickEvent';
+        }
+
+
+    </script>
+
+
+
+</body>
+</html>

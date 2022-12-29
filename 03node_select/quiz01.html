@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>사용자가 버튼을 클릭하면 input태그의 공백여부, 체크박스의 체크여부를 확인</h3>
+
+    아이디:<input type="input" id="id">
+    기억하기:<input type="checkbox" class="remember">
+    <button type="button" id="btn">확인</button>
+
+
+    <hr>
+
+    <h3>인라인이벤트-사용자가 체크박스를 클릭할때마다 경고창에 value값을 띄워주세요.</h3>
+
+        <input type="checkbox" value="1" onclick="if(this.checked!=false)alert('약관에 동의하였습니다'+value)">조항1
+        <input type="checkbox" value="2" onchange="if(this.checked!=false)alert('약관에 동의하였습니다'+value)">조항2
+        <input type="checkbox" value="3" onchange="check(this)">조항3
+
+      
+
+    <script>
+
+        var id = document.getElementById("id");
+        var remember=document.querySelector(".remember");
+        var btn=document.getElementById("btn");
+
+        btn.onclick = function(){
+            if(id.value==""){
+                alert('아이디공백');
+            }
+
+            if(remember.checked==false){
+                alert('체크공백');
+            }
+        }
+       
+        function check(a){
+            if(a.checked){alert('약관에 동의하였습니다'+a.value)};
+        }
+       
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>
