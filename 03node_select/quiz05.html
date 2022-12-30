@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--
+    <article>
+
+        <img src="img/1.jpg" id="img" width="500" style="border:3px solid black;">
+
+        <select id="sel">
+            <option value="1.jpg">봄</option>
+            <option value="2.jpg">여름</option>
+            <option value="3.jpg">가을</option>
+            <option value="4.jpg">겨울</option>
+        </select>
+
+        <button class="btn">이미지바꾸기</button>
+
+        <input type="color" class="input">
+        <button class="btn2">색상변경하기</button>
+    <article>
+
+
+        <script>
+            var img=document.getElementById("img");
+            var btn=document.getElementsByClassName("btn")[0];
+            var btn2=document.getElementsByClassName("btn2")[0];
+            var sel=document.getElementById("sel")
+            var color=document.querySelector(".input");
+            //getElementsBy인지 getElemenetBy인지 구분할 것.
+            //이런 문제를 피하기 위해선 querySelector를 사용하면 된다.
+
+            btn.onclick = function(){
+                img.src="img/"+sel.value;
+            }
+
+            btn2.addEventListener("click",function(){
+                img.style.borderColor=color.value;
+            })
+
+
+        </script>
+    -->
+    <article>
+        <h3>change이벤트로 한번에 변경하기</h3>
+
+        <img src="img/1.jpg" id="img" width="500" style="border:3px solid black;">
+
+        <select id="sel">
+            <option value="1.jpg">봄</option>
+            <option value="2.jpg">여름</option>
+            <option value="3.jpg">가을</option>
+            <option value="4.jpg">겨울</option>
+        </select>
+
+        <input type="color" class="input">
+
+        <script>
+            var img = document.getElementById("img");
+            var sel = document.querySelector("#sel");
+
+            sel.onchange = function () {
+                img.src = "img/" + sel.value;
+            }
+
+            var color = document.querySelector(".input");
+            color.addEventListener("change", function () {
+                img.style.border = "3px solid" + color.value;
+            })
+
+
+        </script>
+
+    </article>
+</body>
+
+</html>

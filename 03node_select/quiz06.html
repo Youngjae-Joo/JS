@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input.focus {
+            outline: none;
+        }
+
+        .margin {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h3>onfocus-인풋에 focus들어갈 때 동작, onblur-인풋에 focus가 떠났을 때 동작 </h3>
+    <div class="box">
+        <div class="margin">아이디: <input type="text" class="xx" placeholder="4글자이상"></div>
+        <div class="id" style="display:none;">아이디는 4글자 이상입니다.</div>
+
+        <div class="margin">비밀번호: <input type="password" class="yy" placeholder="9글자이상"></div>
+        <div class="pw" style="display:none;">비밀번호는 9글자 이상입니다.</div>
+    </div>
+
+    <script>
+        var xx = document.querySelector(".xx");
+        var yy = document.querySelector(".yy");
+
+        var id = document.querySelector(".id");
+        var pw = document.querySelector(".pw");
+
+        xx.onblur = function () {
+            if (xx.value.length < 4) {
+                xx.style.border = "3px solid red";
+                id.style.display = "block";
+            } else {
+                xx.style.border = "3px solid green";
+                id.style.display = "none";
+            }
+        }
+
+        yy.addEventListener("blur", function () {
+            if (yy.value.length < 9) {
+                yy.style.border = "3px solid red";
+                pw.style.display = "block";
+            } else {
+                yy.style.border = "3px solid green";
+                pw.style.display = "none";
+            }
+
+
+        })
+    </script>
+
+
+
+</body>
+
+</html>
