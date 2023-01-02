@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        thead th,
+        tbody td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button button="type" id="delOne">하나씩 삭제</button>
+    <button button="type" id="del">일괄 삭제</button>
+    <table>
+        <thead>
+            <th><input type="checkbox" class="allCheck"></th>
+            <th>번호</th>
+            <th>이름</th>
+            <th>내용</th>
+            <th>날짜</th>
+        </thead>
+
+        <tbody class="table">
+            <tr>
+                <td><input type="checkbox" class="check"></td>
+                <td>1</td>
+                <td>홍길자</td>
+                <td>안녕!</td>
+                <td>2019-01-01</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="check"></td>
+                <td>2</td>
+                <td>김길자</td>
+                <td>안녕!</td>
+                <td>2019-01-01</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="check"></td>
+                <td>3</td>
+                <td>이길자</td>
+                <td>안녕!</td>
+                <td>2019-01-01</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="check"></td>
+                <td>4</td>
+                <td>고길자</td>
+                <td>안녕!</td>
+                <td>2019-01-01</td>
+            </tr>
+
+        </tbody>
+
+        <script>
+            //하나씩 삭제 removeChild
+            var delOne = document.getElementById("delOne");
+            var del = document.querySelector("#del");
+
+            delOne.onclick = function () {
+                var table = document.querySelector(".table"); //tr의 부모요소
+                // console.log(table.firstElementChild);//첫번째요소
+                // console.log(table.children[0]);//첫번째요소
+                table.removeChild(table.firstElementChild);//(지울자식요소)
+
+
+
+            }
+
+            del.onclick = function () {
+                var check = document.querySelectorAll(".check"); //체크박스 전부
+
+                //console.log(confirm("삭제하시겠습니까?"));//확인을 누르면 true, 취소를 누르면 false
+
+                if (confirm("삭제하시겠습니까?")) {
+                    for (var i = 0; i < check.length; i++) {
+                        if (check[i].checked) {
+                            check[i].parentElement.parentElement.remove(); //tr삭제
+                            allCheck.checked=false;
+
+                        }
+
+                    }
+                } else {
+                    for (var i = 0; i < check.length; i++) {
+                        check[i].checked=false;
+                    }
+
+                }
+            }
+
+            var allCheck = document.querySelector(".allCheck");
+            var check = document.querySelectorAll(".check");
+            allCheck.addEventListener("click", function () {
+
+                if (allCheck.checked) { //전부체크로 변경
+                    for (var i = 0; i < check.length; i++) {
+                        check[i].checked=true;
+                    }
+                }else{ //전부체크를 해제
+                    for (var i = 0; i < check.length; i++) {
+                        check[i].checked=false;
+                    }
+                }
+
+
+
+            })
+
+
+
+        </script>
+
+</body>
+
+</html>

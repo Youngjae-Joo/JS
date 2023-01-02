@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>input은 지우는게 아니라 display를 제어하세요</h3>
+    <h2>할일 목록 만들기</h2>
+
+    <button class="allDel">전체삭제</button>
+    <div>
+        <div class="info">
+            <input type="text" placeholder="이름을 입력하세요" class="nameinp">
+            <button id="namebtn" type="button">확인</button>
+        </div>
+        <div id="nameinfo" style="display:none;">
+            <h3 class="nameinfoh3"></h3>
+        </div>
+    </div>
+
+    <input type="text" id="todoinp" placeholder="당신의 할일을 적으세요">
+    <button id="todobtn" type="button">추가</button>
+
+    <ul class="list">
+
+    </ul>
+
+
+
+    <script>
+        var nameinp = document.querySelector(".nameinp");
+        var namebtn = document.querySelector("#namebtn");
+        var nameinfo = document.getElementById("nameinfo");
+        var nameinfoh3 = document.querySelector(".nameinfoh3");
+        var info = document.querySelector(".info");
+
+
+        var todoinp = document.querySelector("#todoinp");
+        var todobtn = document.querySelector("#todobtn");
+        var list = document.querySelector(".list");
+
+        namebtn.onclick = function () {
+            info.style.display = "none";
+            nameinfo.style.display = "block";
+            nameinfoh3.innerHTML = nameinp.value + "님 안녕하세요";
+        }
+
+
+        todoinp.onkeydown = function (a) {
+            if (a.key == "Enter") {
+
+                var li = document.createElement("li");
+                li.innerHTML = todoinp.value; //사용자입력값
+
+                //button=>인라인, 익명함수, addEventListener
+                var delBtn = document.createElement("button");
+                var upBtn = document.createElement("button");
+                var downBtn = document.createElement("button");
+
+                delBtn.innerHTML = "삭제더블클릭";
+                delBtn.type = "button";
+                delBtn.ondblclick = rv;
+                upBtn.innerHTML = "위로";
+                downBtn.innerHTML = "아래로";
+                todoinp.value = "";//입력값초기화
+
+                li.appendChild(delBtn);
+                li.appendChild(upBtn);
+                li.appendChild(downBtn);
+                list.appendChild(li);
+
+                upBtn.addEventListener("click", up);
+                downBtn.addEventListener("click", down);
+            }
+        }
+
+        todobtn.addEventListener("click", function () {
+
+            var li = document.createElement("li");
+            li.innerHTML = todoinp.value; //사용자입력값
+
+            //button=>인라인, 익명함수, addEventListener
+            var delBtn = document.createElement("button");
+            var upBtn = document.createElement("button");
+            var downBtn = document.createElement("button");
+
+            delBtn.innerHTML = "삭제더블클릭";
+            delBtn.type = "button";
+            delBtn.ondblclick = rv;
+            upBtn.innerHTML = "위로";
+            downBtn.innerHTML = "아래로";
+            todoinp.value = ""; //입력값초기화
+
+            li.appendChild(delBtn);
+            li.appendChild(upBtn);
+            li.appendChild(downBtn);
+            list.appendChild(li);
+
+            upBtn.addEventListener("click", up);
+            downBtn.addEventListener("click", down);
+        })
+
+
+
+        function rv() {
+            this.parentElement.remove();
+        }
+
+
+        function up() {
+            if (this.parentElement.previousElementSibling == null) {
+                alert('첫번째행입니다');
+                return;
+            } else {
+                if (confirm('이동하시겠습니까?')) {
+                    list.insertBefore(this.parentElement, this.parentElement.previousElementSibling);
+                } else {
+                    return;
+                }
+            }
+        }
+
+        function down() {
+            if (this.parentElement.nextElementSibling == null) {
+                alert('마지막행입니다');
+                return;
+            } else {
+                if (confirm('이동하시겠습니까?')) {
+                    list.insertBefore(this.parentElement.nextElementSibling, this.parentElement);
+                } else {
+                    return;
+                }
+            }
+        }
+
+
+        //전체삭제
+        var allDel = document.querySelector(".allDel");
+
+        allDel.onclick = function () {
+
+            // while(list.firstChild!=null) {
+            // list.firstChild.remove();
+            // }
+
+            // list.childElementCount->자식노드의 갯수
+            //list.removeChild(삭제할 노드) ->()안에 삭제할 노드를 적으면 자식노드중 그것을 삭제한다. 단, 자식노드여야함
+
+            //버튼 클릭시에 태그를 얻음
+            var lis = document.querySelectorAll(".list>li");
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].remove();
+            }
+
+
+        }
+
+
+
+
+
+    </script>
+
+
+
+
+</body>
+
+</html>
