@@ -68,15 +68,35 @@
                 var list = document.querySelector(".list");
 
 
+                var stack=[];
+
+
                 list.addEventListener("click", function (e) {
                     
                     if (e.target.tagName != "BUTTON") return;
-                    e.target.parentElement.parentElement.remove();
+                    var undo=document.createElement("button");
+                    undo.innerHTML=e.target.parentElement.parentElement.firstElementChild.innerHTML+"번 복구";
+                    undo.addEventListener("click",rollback);
 
+                    var td=document.createElement("td");
+                    var tr=document.createElement("tr");
+
+                    td.appendChild(undo);
+                    tr.appendChild(td);
+                    list.appendChild(tr);
+                    stack.push(e.target.parentElement.parentElement);
+
+                    e.target.parentElement.parentElement.remove();
                 })
 
 
-                
+                function rollback(){
+                    event.stopPropagation();
+                    //console.log( event.target.parentElement.parentElement);
+                    event.target.parentElement.parentElement.remove();
+                   list.appendChild(stack.pop());
+                    
+                }
 
 
 
