@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="list.board" name="actionform">
+        <h3>가입창</h3>
+        이름: <input type="text" name="name"><br>
+        번호: <input type="text" name="phone" onblur="phoneFunc()"><br>
+        분야:
+        <input type="checkbox" name="check">CSS
+        <input type="checkbox" name="check">JS
+        <input type="checkbox" name="check">HTML
+
+        <input type="submit" value="submit">
+
+
+    </form>
+
+    <script>
+        /*
+            1. form태그는 document의 자식이라서 form의 document.폼명으로 접근이 가능합니다.
+            2. input은 form의 자식이라서 document.폼명.태그name으로 접근이 가능합니다.
+        */
+
+        // console.log(document.actionform);
+        // console.log(document.actionform.name);
+        // console.log(document.actionform.phone);
+
+        var submit = document.actionform.querySelector("input[type='submit']");//form안에서 찾기
+        submit.onclick = function () {
+            event.preventDefault();//submit의 고유이벤트 제거
+
+            if (document.actionform.name.value.length <= 0) {
+                alert('이름은 필수입니다');
+                document.actionform.name.focus();//포커싱
+                return;//반드시 함수 종료
+            } else if (document.actionform.phone.value.length != 11) {
+                alert('번호는 -없이 11글자로 입력하세요');
+                document.actionform.phone.value = '';
+                document.actionform.phone.focus();
+                return;
+            } else {//체크박스
+                var cnt = 0;
+                var check = document.actionform.check;//배열로받음
+                for (var i = 0; i < check.length; i++) {
+                    if (check[i].checked) {
+                        cnt++;
+                    }
+                }
+                if (cnt == 0) {
+                    alert('적어도 하나의 분야를 체크하세요');
+                    return;
+                }
+            }
+            document.actionform.submit();//폼.submit();
+        }
+
+        function phoneFunc(){
+           event.target.value = event.target.value.replaceAll("-","");//이벤트가 생성은 다 되지만 동작되지 않을 때가 있는데, 그때 함수의 매개변수로 event를 주고 사용하면 됨.
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -68,7 +68,7 @@
                 var list = document.querySelector(".list");
 
 
-                var stack=[];
+                var Array=[];
 
 
                 list.addEventListener("click", function (e) {
@@ -84,7 +84,7 @@
                     td.appendChild(undo);
                     tr.appendChild(td);
                     list.appendChild(tr);
-                    stack.push(e.target.parentElement.parentElement);
+                    Array.push(e.target.parentElement.parentElement);
 
                     e.target.parentElement.parentElement.remove();
                 })
@@ -92,13 +92,14 @@
 
                 function rollback(){
                     event.stopPropagation();
-                        
-                        if(stack.peek().firstElementChild.innerHTML==event.target.innerHTML.substr(0,1)){
-                            event.target.parentElement.parentElement.remove();
-                            list.appendChild(stack.pop());
-                            
+
+                        for(var a in Array){
+                            if(Array[a].firstElementChild.innerHTML==event.target.innerHTML.substr(0,1)){
+                                event.target.parentElement.parentElement.remove();
+                                list.appendChild(Array[a]);
+
+                            }
                         }
-                        
                 }
 
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .bgImg {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                margin-left:500px;
+            }
+
+            to {
+                opacity: 1;
+                margin-left: 0px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h3>애니메이션이 주기적으로 동작하려면 태그가 변경되야합니다</h3>
+
+    <div class="slide">
+        <img src="img/slide1.jpg" class="bgImg">
+    </div>
+
+
+
+    <script>
+        var slide = document.querySelector(".slide");
+        
+        var i = 1;
+        setInterval(function () {
+            i++;
+            var bgImg = document.querySelector(".bgImg");
+            bgImg.remove();
+            var nextImg = document.createElement("img");
+            nextImg.src = "img/slide" + i + ".jpg";
+            nextImg.classList.add("bgImg");
+            slide.appendChild(nextImg);
+            if (i == 4) i = 0;
+        }, 2000);
+        
+        
+        //다른방법
+        //이미지태그를 4개 만들고 css에서 이미지태그 전체에 display:none; 넣고 그 아래에 .bgImg에 display:block; 설정.
+        // var slide = document.querySelector(".slide");
+        // var bgImg=document.querySelectorAll("img");
+        // var i = 0;
+        // setInterval(function () {
+        //     bgImg[i].classList.remove("bgImg");
+        //     i++;
+        //     if (i == 4) i = 0;
+        //     bgImg[i].classList.add("bgImg");
+        // }, 2000);
+
+    </script>
+
+
+
+
+</body>
+
+</html>

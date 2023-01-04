@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form action="list.board" name="actionForm">
+        <h3>가입창</h3>
+        아이디: <input type="text" name="id" placeholder="아이디는 문자와 숫자" onkeypress="enter(event)"><br>
+        비밀번호: <input type="password" name="pw" placeholder="숫자, 영문자, 특수문자 최소 한개" onkeypress="enter(event)"><br>
+        생략....<br>
+        <button type="button" onclick="joinCheck()">가입</button>
+    </form>
+
+
+    <script>
+        var regExpid = /^[A-Za-z0-9]{5,10}$/g; 
+        var regExppw = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{4,16}$/;
+
+
+
+        
+        function joinCheck(){
+            if(!regExpid.test(document.actionForm.id.value)){
+                alert("영문자 숫자 포함 5~10글자입니다.");
+                document.actionForm.id.value="";
+                document.actionForm.id.focus();
+                return;
+                
+            }else if(!regExppw.test(document.actionForm.pw.value)){
+                alert("영문자 숫자 특수문자 포함 4~16글자입니다");
+                document.actionForm.pw.value="";
+                document.actionForm.pw.focus();
+              return;
+            }
+
+            document.actionForm.submit();
+        }
+
+
+        //UX 엔터키값 처리
+        function enter(e){
+            if(e.keyCode=="13"){//모든 키보드의 키는 keycode가 있다. if(e.key=="Enter")도 가능
+                joinCheck();
+            }
+            // if(e.key=="Enter"){
+            //     joinCheck();
+            // }
+        }
+
+
+    </script>
+
+</body>
+</html>
