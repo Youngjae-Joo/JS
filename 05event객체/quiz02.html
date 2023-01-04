@@ -92,10 +92,13 @@
 
                 function rollback(){
                     event.stopPropagation();
-                    //console.log( event.target.parentElement.parentElement);
-                    event.target.parentElement.parentElement.remove();
-                   list.appendChild(stack.pop());
-                    
+                        
+                        if(stack.peek().firstElementChild.innerHTML==event.target.innerHTML.substr(0,1)){
+                            event.target.parentElement.parentElement.remove();
+                            list.appendChild(stack.pop());
+                            
+                        }
+                        
                 }
 
 
