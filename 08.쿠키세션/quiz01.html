@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="imgclick">
+        <img src="img/1.jpg">
+        <img src="img/2.jpg">
+        <img src="img/3.jpg">
+        <img src="img/4.jpg">
+    </div>
+
+    <button id="btn">최신정보불러오기</button>
+
+
+    <script>
+
+        var imgclick=document.querySelector("#imgclick");
+        var btn=document.querySelector("#btn");
+        
+        
+        var arr=[];
+        imgclick.addEventListener("dblclick",function(){
+            if(event.target.tagName!="IMG") return;
+            arr.push(event.target.src);
+        });
+        
+        
+        
+        btn.addEventListener("click",function(){
+            localStorage.setItem("a",JSON.stringify(arr));
+            
+            
+            window.open("quiz01_result.html");
+        })
+
+
+    </script>
+
+
+</body>
+
+</html>
