@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <ul class="pageNation">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+
+    <button>받아오기</button>
+
+
+    <script>
+        //key
+        var key = "lH8dtP1tOtcqTSDV65V5jQrM%2BbqLhSZx4PIQBEZbx7YRUgLR8kyTtVzgRmWMphIhj%2B7LKfyLdXeMtNEC%2B7SXAQ%3D%3D";
+
+        var pageNation = document.querySelector(".pageNation");
+        pageNation.addEventListener("click", function () {
+
+            if (event.target.tagName != "LI") return;
+            ajax(event.target.innerHTML); //데이터호출 (사용자가 클릭한 페이지번호)
+        })
+
+
+
+
+        function ajax(page) {
+
+            fetch("http://apis.data.go.kr/1360000/TourStnInfoService/getTourStnVilageFcst?ServiceKey=" + key + "&pageNo=" + page + "&numOfRows=10&dataType=JSON&CURRENT_DATE=2023010510&HOUR=24&COURSE_ID=10")
+                .then(function (res) {
+                    return res.json();
+                }).then(function (data) {
+                    var arr = data.response.body.items.item;
+                    for (var i = 0; i < arr.length; i++) {
+                        console.log(arr[i]);
+                        // console.log(arr[i].tm);
+                        // console.log(arr[i].thema);
+                        // console.log(arr[i].courseId);
+                        // console.log(arr[i].courseAreaId);
+                        // console.log(arr[i].courseAreaName);
+                        // console.log(arr[i].courseName);
+                        // console.log(arr[i].spotAreaId);
+                        // console.log(arr[i].spotAreaName);
+                        // console.log(arr[i].spotName);
+                        // console.log(arr[i].th3);
+                        // console.log(arr[i].wd);
+                        // console.log(arr[i].ws);
+                        // console.log(arr[i].sky);
+                        // console.log(arr[i].rhm);
+                        // console.log(arr[i].pop);
+                        console.log("---------------------------------");
+                    }
+                })
+        }
+
+
+        (function(){
+            ajax(1)
+        })();
+
+    </script>
+</body>
+
+</html>

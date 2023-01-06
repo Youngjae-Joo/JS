@@ -84,6 +84,9 @@
             if (S < 10) {
                 S = "0" + S;
             }
+            if(H<10){
+                H="0"+H;
+            }
             content.innerHTML = H + ":" + M + ":" + S;
         }
         /////////////
@@ -100,8 +103,6 @@
             var H = str[0];
             var M = str[1];
             var S = str[2];
-
-
 
             S -= 1;
             if (S < 0) {
@@ -133,7 +134,7 @@
 
 
 
-            content.innerHTML = H + ":" + M + ":" + S;
+            content.innerHTML = H.toString().padStart(2,'0') + ":" + M.toString().padStart(2,'0') + ":" + S.toString().padStart(2,'0');
 
         }
 
