@@ -15,15 +15,113 @@
     <script>
         //1.카카오 SDK 초기화
         Kakao.init('ad832907a0babc8f7848f6e92424f4e1');
-        Kakao.isInitialized();
+        Kakao.isInitialized(); //true
 
-        console.log(Kakao.isInitialized());
-
-        //2.
+        //2.카카오로그인화면 띄우기
         function loginWithKakao() {
             Kakao.Auth.authorize({
                 redirectUri: 'http://127.0.0.1:5501/09.AJAX/index05.html'
             });
+        }
+
+
+        //3.인가코드 받아오기
+        var URLSearch = new URLSearchParams(location.search);
+        //console.log(URLSearch.get("code")); //인가코드. 
+
+        if (URLSearch.get("code") != null) {
+            ajax();
+        }
+
+
+        //4.토큰발급요청(POST방식, form형식)
+        function ajax() {
+
+            // //JSON형식의 POST 요청
+            // var data = {
+            //     //키:값
+            //     grant_type : "authorization_code",
+            //     client_id : 'c70a246db2d671e62329fc5dfccffd68',
+            //     redirect_uri : 'http://127.0.0.1:5501/09.AJAX/index05.html',
+            //     code : URLSearch.get('code')//인가코드값
+
+            // }
+
+
+            // //post방식은 두번째 매개변수로 option을 정해준다.
+            // fetch("https://kauth.kakao.com/oauth/token", {
+            //     //키:값
+            //     method: 'POST',
+            //     headers:{
+            //         "Content-Type":"application/json" 
+            //     },
+            //     body : JSON.stringify(data)
+            // }).then(function(res){
+            //     console.log(res);
+            // })  
+
+            //////////////////////////////////////////////////////////////////////////////////
+            //FORM형식의 POST요청
+            //formData 객체이용 or 문자열
+
+            //문자열
+            var url = "http://127.0.0.1:5501/09.AJAX/index05.html";
+
+            var data = "grant_type=authorization_code" +
+                "&client_id=c70a246db2d671e62329fc5dfccffd68" +
+                "&redirect_uri=" + url +
+                "&code=" + URLSearch.get('code');
+
+
+
+            fetch("https://kauth.kakao.com/oauth/token", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' //form타입. 어차피 문자열.
+                },
+                body: data
+            }).then(function (res) {
+                return res.json();
+            }).then(function (data) {
+                console.log(data);
+                //토큰 저장하는 2가지 방법
+                //sessionStorage or cookie로 저장
+                sessionStorage.setItem("access_token", data.access_token);
+
+                //카카오 API함수에 저장
+                Kakao.Auth.setAccessToken(data.access_token);
+
+                //토큰을 발급받고 사용자정보 받아오기 호출
+                requestUserInfo();
+
+            })
+        }
+
+        //5.사용자 정보 받아오기
+        function requestUserInfo() {
+            //카카오API내장함수 호출
+            Kakao.API.request({
+                url: '/v2/user/me',
+            }).then(function (res) {
+                // console.log(res);
+                console.log(res.kakao_account.email);//사용자 이메일
+                console.log(res.kakao_account.profile.nickname);//사용자 닉네임
+                console.log(res.kakao_account.profile.profile_image_url);//사용자 프로필 이미지
+
+                //이 정보를 가지고, 우리 데이터베이스에서 조회 or 로그인하는 작업으로 연결
+                //처리하는 페이지로..
+                sessionStorage.setItem("info",JSON.stringify({id:res.kakao_account.profile.nickname,
+                img:res.kakao_account.profile.profile_image_url}));
+                location.href="index06.html";
+
+
+
+
+            }).catch(function (error) {
+                console.log(error);
+            });
+
+
         }
 
 
@@ -34,35 +132,6 @@
     </a>
     <p id="token-result"></p>
 
-
-    <!-- <script>
-       
-
-        // 아래는 데모를 위한 UI 코드입니다.
-        displayToken()
-        function displayToken() {
-            var token = getCookie('authorize-access-token');
-
-            if (token) {
-                Kakao.Auth.setAccessToken(token);
-                Kakao.Auth.getStatusInfo()
-                    .then(function (res) {
-                        if (res.status === 'connected') {
-                            document.getElementById('token-result').innerText
-                                = 'login success, token: ' + Kakao.Auth.getAccessToken();
-                        }
-                    })
-                    .catch(function (err) {
-                        Kakao.Auth.setAccessToken(null);
-                    });
-            }
-        }
-
-        function getCookie(name) {
-            var parts = document.cookie.split(name + '=');
-            if (parts.length === 2) { return parts[1].split(';')[0]; }
-        }
-    </script> -->
 
 
 </body>
